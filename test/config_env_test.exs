@@ -48,6 +48,12 @@ defmodule ConfigEnvTest do
     assert env[:list] == ["a", "b", "c"]
   end
 
+  test "can has default value" do
+    ConfigEnv.load_env(:config_default_env)
+    env = Application.get_all_env(:config_default_env)
+    assert env[:missing] == "default value"
+  end
+
   test "missing env will be raised" do
     assert_raise ConfigEnv, fn -> ConfigEnv.load_env(:config_raise) end
   end
